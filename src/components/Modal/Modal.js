@@ -1,34 +1,34 @@
-import { Component } from "react";
+import { useEffect } from "react";
 import PropTypes from "prop-types";
 import { createPortal } from "react-dom";
 import s from "../Modal/Modal.module.css";
 
 const modalRoot = document.querySelector("#modal-root");
 
-export default class Modal extends Component {
-  componentDidMount() {
-    window.addEventListener("keydown", this.handleKeyDown);
-  }
+export default function Modal({toggleModal, modalImg, tags}) {
 
-  componentWillUnmount() {
-    window.removeEventListener("keydown", this.handleKeyDown);
-  }
+    useEffect(
+        () => {
+            window.addEventListener("keydown", handleKeyDown);
+            return () => {
+                window.removeEventListener("keydown", handleKeyDown);
+            }
+        }
+    )
 
-  handleKeyDown = (e) => {
-    if (e.code === "Escape") {
-      this.props.toggleModal();
-    }
+    const handleKeyDown = (e) => {
+        if (e.code === "Escape") {
+            toggleModal();
+        }
+    };
+    
+    const handleBackdropClick = (e) => {
+        if (e.currentTarget === e.target) {
+            toggleModal();
+        }
   };
 
-  handleBackdropClick = (e) => {
-    if (e.currentTarget === e.target) {
-      this.props.toggleModal();
-    }
-  };
-
-  render() {
-    const { handleBackdropClick } = this;
-    const { modalImg, tags } = this.props;
+  
     return createPortal(
       <div className={s.overlay} onClick={handleBackdropClick}>
         <div className={s.modal}>
@@ -37,7 +37,7 @@ export default class Modal extends Component {
       </div>,
       modalRoot
     );
-  }
+  
 }
 
 Modal.propTypes = {
