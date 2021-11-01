@@ -20,6 +20,7 @@ export default function ImageGallery({value}) {
 
   useEffect(
     () => {
+      if (!value) return;
       newPixabayFetch.resetPage();
       setLoader(true);
       newPixabayFetch.searchQuery = value;
@@ -34,7 +35,7 @@ export default function ImageGallery({value}) {
           setSearchResult(searchResult);
           setLoader(false);
         })
-        .catch((error) => setError('error'));
+        .catch((error) => setError(error));
     }, [value]
   );
 
@@ -43,13 +44,13 @@ export default function ImageGallery({value}) {
     setLoader(true);
     newPixabayFetch
       .searchPhotos()
-      .then((searchResult) => {
-        setSearchResult(prevState =>
-        [...prevState.searchResult, ...searchResult])
+      .then(searchResult => {
+        setSearchResult(prev =>
+        [...prev, ...searchResult])
           setLoader(false);
       })
       .then(ScrollImages)
-      .catch((error) => setError('error'));
+      .catch((error) => setError(error));
   }
 
   const ScrollImages = () => {

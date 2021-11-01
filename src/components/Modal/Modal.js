@@ -41,7 +41,7 @@ export default function Modal({toggleModal, modalImg, tags}) {
 }
 
 Modal.propTypes = {
-  handleBackdropClick: PropTypes.func.isRequired,
+  handleBackdropClick: PropTypes.func,
   modalImg: PropTypes.string,
   tags: PropTypes.string,
 };
