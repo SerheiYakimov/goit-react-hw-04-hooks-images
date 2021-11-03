@@ -2,6 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import s from "../Searchbar/Searchbar.module.css";
+import { BsSearch } from 'react-icons/bs'
 
 export default function Searchbar({onSubmit}) {
     const [searchValue, setSearchValue] = useState('');
@@ -21,13 +22,13 @@ export default function Searchbar({onSubmit}) {
   };
    
 
-
+// BsSearch
 
     return (
       <header className={s.searchbar}>
         <form className={s.searchForm} onSubmit={handleSearchSubmit}>
           <button type="submit" className={s.searchButton}>
-            <span className={s.searchButtonLabel}>Search</span>
+            <BsSearch className={s.reactIcons}/>
           </button>
           <input
             className={s.searchInput}
